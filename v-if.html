@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+
+    <!-- v-if and v-show -->
+    <div id="app">
+
+        <input type="button" value="点我" @click="toggle">
+        <h3 v-if="flag">v-if</h3>
+        <h3 v-show="flag">v-show</h3>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                flag:true
+            },
+        methods:{
+            toggle(){
+                this.flag = !this.flag
+            }
+        }
+        })
+
+    </script>
+    
+</body>
+</html>

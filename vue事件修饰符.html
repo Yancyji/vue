@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+
+    <style>
+        .inner{
+            height: 150px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML代码 -->
+    <div id="app">
+        <!-- .prevent 阻止默认行为 -->
+        <a href="http://www.sdju.edu.cn" @click.prevent="linkclick">SDJU</a>
+        <br><br>
+
+        <!-- .capture 实现捕获触发，从外到里 -->
+        <div class="inner" @click="divHandler">
+
+            <!-- .stop停止冒泡行为 -->
+            <input type="button" value="点击" @click.stop="btnHandler">
+
+            <!-- .self 点击当前元素触发事件 -->
+            <!-- .once 只触发一次，修饰符可配合使用 -->
+
+        </div>
+    </div>
+
+
+    <!-- js代码 -->
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods: {
+                divHandler(){
+                  alert('这是inner div')  
+                },
+                btnHandler(){
+                    alert('这是btn') 
+                },
+                linkclick(){
+                    alert('这是超链接')
+                }
+            },
+        });
+    </script>
+</body>
+</html>

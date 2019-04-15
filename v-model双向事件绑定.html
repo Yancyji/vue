@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+
+            <h4>{{msg}}</h4>
+            <br><br>
+            <!-- <input type="text" :value="msg"> -->
+
+            <!-- 使用v-model 实现事件的双向绑定，只能用在表单元素中-->
+            <input type="text" v-model="msg"> 
+            <input type="button" value="点击" @click="change">
+
+    </div>
+       
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'这儿有一行字符串'
+            },
+            methods:{
+                change(){
+                    this.msg = '变了'
+                }
+            },
+        })    
+        
+    </script>
+</body>
+</html>

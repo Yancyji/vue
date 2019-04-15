@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>厉害了，我的Vue</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-cloak 解决闪烁问题  标签中内会被解析-->
+        <p>{{message}}</p>
+
+        <!-- v-text  没有闪烁问题，标签中内不会被解析，v-text会覆盖原本的内容 -->
+        <h4 v-text="message"></h4>
+
+        <input type="button" value="按钮" v-bind:title="mytitle + '2333'" >
+        <!-- v-bind判定属性，v-bind简写  ':' ,v-bind:title="mytitle"/:title="mytitle"-->
+
+        <!-- v-on 绑定事件,js常用事件都可以绑定，简写@-->
+        <input type="button" value="v-on:click按钮" v-on:click="show">
+
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el:'#app',
+           data:{
+               message:'13',
+               mytitle:'这是一个title'
+           },
+           methods:{
+               show:function () {
+                   alert('hello');
+               }
+           }
+        })
+    </script>
+</body>
+</html>

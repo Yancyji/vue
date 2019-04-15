@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+    <!-- HTML代码 -->
+
+
+    <!--创建控制区-->
+    <div id="app">
+        <input type="button" value="动起来" @click="circle">
+        <input type="button" value="停止" @click="stop">
+        <h3>{{meg}}</h3>
+
+
+    </div>
+
+    <!-- js代码 -->
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                meg:'这是一行会动的字',
+                intervalId:null
+            },
+            methods:{
+
+               circle(){
+
+                   let _this = this
+
+                    if(this.intervalId != null)
+                        return null
+                    this.intervalId = setInterval(function(){
+                    let start = _this.meg.substring(0,1)
+                    let end = _this.meg.substring(1)
+                    _this.meg = end+start
+                   },100)
+               },
+               stop(){
+                    clearInterval(this.intervalId)
+                    this.intervalId = null
+               }
+            }
+
+
+        })
+    </script>
+</body>
+</html>

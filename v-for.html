@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <!-- 循环数组 -->
+        <p v-for="(item,i) in list">索引：{{i}}------项：{{item}}</p>
+
+        <!-- 循环对象数组 -->
+        <p v-for="user in list1">id:{{user.id}}------name：{{user.name}}</p>
+
+
+        <!-- v-for 循环对象 -->
+        <p v-for="(val,key) in user">{{val}}---{{key}}</p>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                list:[1,2,3,4,5,6],
+                list1:[
+                    {id:1,name:'123'},
+                    {id:2,name:'456'},
+                    {id:3,name:'789'}
+                ],
+                user:{
+                    id:1,
+                    name:'柒夜',
+                    age:21
+                }
+            },
+            methods:{
+
+            }
+        });
+    </script>
+
+</body>
+</html>

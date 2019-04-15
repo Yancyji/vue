@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Document</title>
+
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+
+    <!-- 过滤器实践 -->
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label >
+                    Id:
+                    <input type="text" class="form-control" v-model="id">
+                </label>
+                <label >
+                        Name:
+                        <input type="text" class="form-control" v-model="name">
+                    </label>
+                <input type="button" value="添加" class="btn btn-primary" @click="add()">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label >
+                    搜索名称关键字:
+                    <input type="text" class="form-control" v-model="keywords">
+                </label>
+
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>ctime</th>
+                    <th>Opertion</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                 <!-- <tr v-for="item in list" :key="item.id"> -->
+                <tr v-for="item in search(keywords)" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td v-text="item.name"></td>
+                    <td>{{item.ctime | dataFormat{'yyyy-mm-dd'} }}</td>
+                    <!-- <td>{{item.ctime | dataFormat}}</td> -->
+                    <td>
+                        <a href="" @click.prevent="dele(item.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        //全局过滤器
+        Vue.filter('dataFormat',function(dataStr,pattern=""){
+            let dt = new Date(dataStr)
+
+
+            let year = dt.getFullYear()
+            let month = dt.getMonth()+1
+            let day = dt.getDate()
+
+
+            //return year+'-'+month+'-'+day
+
+            // return `${year}-${month}-${day}`
+
+
+            if(pattern.toLowerCase() === 'yyyy-mm-dd'){
+                return `${year}-${month}-${day}`
+            }
+            else{
+                let hours = dt.getHours()
+                let minutes = dt.getMinutes()
+                let seconds = dt.getSeconds()
+
+
+                return `${year}-${month}-${day}:${hours}:${minutes}:${seconds}`
+            }
+        })
+
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                id:'',
+                name:'',
+                keywords:'', //搜索关键字
+                list:[
+                    {id:1,name:'奔驰',ctime:new Date()},
+                    {id:2,name:'宝马',ctime:new Date()},
+                    {id:3,name:'长安福特',ctime:new Date()},
+                    {id:4,name:'奥迪',ctime:new Date()},
+                ]
+            },
+            methods:{
+                add(){
+                    let car={id:this.id,name:this.name,ctime:new Date()}
+                    this.list.push(car)
+                    this.id = this.name = ''
+                },
+                dele(id){
+                    //根据id ，删除索引项
+                    //找到索引，调用数组的splice方法
+
+
+                    //some 方法删除时只能从头部删除
+                    // this.list.some((item,i)=>{
+                    //     if(item.id == id)
+                    //         this.list.splice(i,1)
+                    //     //如果找到id 终止循环
+                    //     return true;
+                    // })
+
+                    let index = this.list.findIndex(item =>{
+                        if(item.id == id)
+                        return true;
+                    })
+
+                    this.list.splice(index,1)
+                },
+
+                //根据关键字搜索
+                search(keywords){
+                    // let newList = []
+                    // this.list.forEach(item => {
+                    //     if(item.name.indexOf(keywords) != -1){
+                    //         newList.push(item)
+                    //     }
+                    // });
+                    // return newList
+
+
+
+                    //第二种方式
+
+                   let newList =  this.list.filter(item =>{
+                        if(item.name.includes(keywords)){
+                            return item;
+                        }
+                    });
+
+                    return newList
+                }
+            },
+        });
+
+
+        // Vue.filter('过滤器名称',function(){}),过滤器语法
+        //过滤器的第一个参数是过滤器管道前面传递的数组
+       
+    </script>
+</body>
+</html>
+<!-- 过滤器使用方式，{{name | nameope}} -->
